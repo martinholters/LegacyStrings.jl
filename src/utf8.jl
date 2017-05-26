@@ -187,6 +187,9 @@ function string(a::Union{ByteString,Char}...)
     UTF8String(s)
 end
 
+#resolve ambiguity in favour of Base method
+string(a::Char...) = invoke(string, Tuple{Vararg{Union{Char,String}}}, a...)
+
 function reverse(s::UTF8String)
     dat = s.data
     n = length(dat)
